@@ -1,3 +1,4 @@
+// Sol1
 #define BOY 	0
 #define GIRL 	1
 
@@ -43,4 +44,36 @@ void boygirl_unlock(boygirl_lock_t *lock,int gender){
 	}
 	spin_unlock_irq(&(lock->lock));
 	return;
+}
+
+
+// Sol2
+#define BOY 0
+#define GIRL 1
+
+typedef struct {
+	spinlock_t lock;
+	int count[2];
+} boygirl_lock_t;
+
+void boygirl_lock_init(boygirl_lock_t *lock) {
+	lock->lock = SPIN_LOCK_UNLOCKED;
+	lock->count[BOY] = 0;
+	lock->count[GIRL] = 0;
+}
+
+void boygirl_lock(boygirl_lock_t *lock, int gender) {
+	spin_lock_irq(&(lock->lock));
+	while (lock->count[1-gender]) {
+		spin_unlock_irq(&(lock->lock));
+		spin_lock_irq(&(lock->lock));
+	}
+	lock->count[gender] ++;
+	spin_unlock_irq(&(lock->lock));
+}
+
+void boygirl_unlock(boygirl_lock_t *lock, int gender) {
+	spin_lock_irq(&(lock->lock));
+	lock->count[gender] --;
+	spin_unlock_irq(&(lock->lock));
 }
