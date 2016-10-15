@@ -4,22 +4,13 @@
  * Version: 1
  *
  */
-#define DIRECTORY_SIZE 1024
-#define TABLE_SIZE 1024
-#define FOUR_KB 0x1000			// different page size 
-#define FOUR_MB 0x400000
-//// KERNAL_MODE USER_MODE address
-#define KERNEL_ADDRESS 0x400000 
-///////// set up control registers 
-#define CR3_VALUE 0x00000000	// use to hold the base address of the page directory register 
-#define CR0_VALUE 0x80000001	// CR0: SET the high bit to 1：enable paging, SET low bit to 1: in protected mode 
-#define CR4_VALUE 0x00000010	// SET up the bit in CR4 to enable page size extension 
+
 
 #include "paging.h"
 
 /// local functions 
 static void set_pd();	static void set_pt();
-static void set_registersisters();		static void translation();
+static void set_registers();		static void translation();
 
 
 /*
