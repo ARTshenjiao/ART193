@@ -17,7 +17,8 @@
 //// kernal start address
 #define KERNEL_ADDRESS 0x400000 
 
-#define VIDEO_MEMORY 0xB8
+#define VIDEO_MEMORY 0xB8				// base address of video memory's index in page table 
+ 										/// use to alignment, the actual adress is 0xB8000
 
 ///////// set up control registers 
 #define CR3_VALUE 0x00000000	// use to hold the base address of the page directory register 
@@ -25,7 +26,7 @@
 #define CR4_VALUE 0x00000010	// SET up the bit in CR4 to enable page size extension 
 ///////// for translation modes 
 #define USER_MODE 0
-#define KERNEL_MODE 1 
+#define KERNEL_MODE 1
 
 
 

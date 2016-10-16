@@ -6,7 +6,7 @@
  */
 
 
-#include "paging.h"
+#include "paging_cp1.h"
 
 /// local functions 
 static void set_pd();	static void set_pt();
